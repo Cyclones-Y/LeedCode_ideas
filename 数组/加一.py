@@ -24,17 +24,18 @@ from typing import List
 """
 class Solution:
     def plusOne(self, digits: List[int]) :
-        numbers = int(''.join([str(i) for i in digits]))
-        print(numbers)
-        add_num = numbers + 1
-        print(add_num)
-        if len(str(add_num)) != len(str(numbers)):
-            return_list = [int(i) for i in str(add_num)]
-            return return_list
+        # 倒序，检查最后一名元素是否需要进位
+        for i in range(len(digits) - 1, -1, -1):
+            if digits[i] < 9:
+                digits[i] += 1
+                return digits
+            digits[i] = 0
+        # 如果digits在循环中没有return出去，则代表digits中全为需要进位的。
+        return [1] + digits
 
 
 if __name__ == '__main__':
-    digits = [4, 3, 2, 9]
+    digits = [9, 9, 9, 9, 9]
     result = Solution()
     results = result.plusOne(digits)
     print(results)
